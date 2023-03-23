@@ -16,8 +16,9 @@
         <%- include('./partials/portfolio.ejs') %>
         <%- include('./partials/contact.ejs') %>     
       </div>
-        <%- include('./partials/scripts.ejs') %>
+        <%- include('./partials/scripts.ejs', {data: data}) %>
 
+       
     <script>
     var typed = new Typed(".aboutMe", {
     strings: <%- JSON.stringify(array) %> ,

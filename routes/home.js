@@ -20,5 +20,14 @@ router.post('/', jsonParser, function(req, res, next) {
   res.end();
 });
 
+//This is not correct. This is adding an element to the array not taking away an element
+router.delete('/', jsonParser, function(req, res, next) {
+  let rawdata = fs.readFileSync(path.resolve(__dirname, "../data/introductionArray.json"));
+  let array = JSON.parse(rawdata);
+  const newArray = array.pop([req.body.deleteText])
+  fs.writeFileSync(path.resolve(__dirname, "../data/introductionArray.json"), JSON.stringify(newArray));
+  res.end();
+});
+
 
 module.exports = router;
