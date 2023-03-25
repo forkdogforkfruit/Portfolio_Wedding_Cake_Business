@@ -11,16 +11,16 @@
     </head>
    
     <body class="position-relative" data-bs-spy="scroll"> 
-     
+      <div data-spy="scroll" data-target="#navbar" data-offset="0"></div>
       <%- include('./partials/navbar.ejs') %>
-      <div data-spy="scroll" data-target="#navbar" data-offset="0">
+     
         <%- include('./partials/home.ejs') %>
          
       </div>
         <%- include('./partials/scripts.ejs') %>
 
         <script>
-          var typed = new Typed(".aboutMe", {
+          var typed = new Typed(".aboutMe", { 
             strings: <%- JSON.stringify(array) %>, 
             smartBackspace: true,
             typeSpeed: 100,
