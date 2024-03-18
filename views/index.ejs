@@ -15,13 +15,14 @@
         <%- include('./partials/recommendations.ejs') %>
         <%- include('./partials/portfolio.ejs') %>
         <%- include('./partials/contact.ejs') %>     
-      </div>
         <%- include('./partials/scripts.ejs', {data: data}) %>
 
+      </div>
+       
        
     <script>
     var typed = new Typed(".aboutMe", {
-    strings: <%- JSON.stringify(array) %> ,
+    strings: <%- JSON.stringify(array) %>,
     smartBackspace: true,
     typeSpeed: 100,
     backSpeed: 100,
