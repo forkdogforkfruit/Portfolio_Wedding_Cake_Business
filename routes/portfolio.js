@@ -1,10 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var request = require('request');
+
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var fs = require('fs');
 var path = require('path');
+
+var request = require('request');
+
+var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
+var ensureLoggedIn = ensureLogIn();
 
 //download image to the server:
 function download(url, filename, callback) {
@@ -32,5 +37,22 @@ router.get('/', function(req, res, next) {
     }
     res.end();
   });
+  
+  router.delete('/', jsonParser, function(req, res, next) {
+    let rawdata = fs.readFileSync(path.resolve(__dirname, "../data/portfolio.json"));
+    let portfoliosArray = JSON.parse(rawdata);
+    const newArray = portfoliosArray.filter(x => x.name !== req.body.name)
+    if(newArray.length !== portfoliosArray.length) {
+      fs.unlink(path.resolve(__dirname, '../data/img/'+ req.body.name), () => {
+        console.log(req.body.name + " deleted!");
+      });
+      fs.writeFileSync(path.resolve(__dirname, "../data/portfolio.json"), JSON.stringify(newArray));
+    }
+    res.end();
+  });
 
-module.exports = router;
+  router.delete('/', jsonParser, ensureLoggedIn, function(req, res, next) {
+    /* ... */
+  })
+
+  module.exports = router;
